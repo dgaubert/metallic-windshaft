@@ -10,31 +10,30 @@
     "url": "git+https://github.com/dgaubert/metallic-windshaft.git"
   },
   "engines": {
-    "node": ">=7.6.0"
+    "node": ">=8.0.0"
   },
   "scripts": {
     "start": "node lib --no-metrics --cluster",
-    "dev": "NODE_ENV=development npm run start | bunyan",
+    "dev": "NODE_ENV=development node lib --no-metrics | bunyan",
     "build": "babel src -d lib --source-maps inline",
     "build:watch": "npm run build -- --watch",
     "coverage": "nyc --reporter=lcov npm test",
     "lint": "standard \"src/**/*.js\" \"test/**/*.js\"",
     "postversion": "git push && git push --tags",
-    "prepublish": "npm run build",
+    "prepublishOnly": "npm run build",
     "pretest": "npm run lint",
     "preversion": "npm test",
     "test": "NODE_ENV=test mocha --recursive -r babel-register -r source-map-support/register test",
     "test:watch": "npm run test -- -w"
   },
   "dependencies": {
-    "koa-static": "^3.0.0",
     "mapnik": "^3.6.2",
-    "metallic": "^0.4.0"
+    "metallic": "^0.4.0",
+    "path-to-regexp": "^1.7.0"
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",
     "babel-plugin-transform-es2015-modules-commonjs": "^6.24.1",
-    "babel-plugin-transform-object-rest-spread": "^6.23.0",
     "mocha": "^3.4.2",
     "node-fetch": "^1.7.1",
     "nyc": "^10.3.2",
