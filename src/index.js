@@ -1,10 +1,8 @@
 import Metallic, { SERVER } from 'metallic'
 
-import StaticContentController from './controllers/static-content-controller'
-
-import TileBackend from './backends/tile-backend'
-import TileService from './services/tile-service'
-import TileController from './controllers/tile-controller'
+import Cartonik from './cartonik'
+import MapMiddleware from './middlewares/map'
+import TileMiddleware from './middlewares/tile'
 
 const { app, role, start } = new Metallic({
   port: 8888,
@@ -14,13 +12,14 @@ const { app, role, start } = new Metallic({
 })
 
 if (role === SERVER) {
-  const staticContentController = new StaticContentController({ app })
-  staticContentController.regist()
+  const map = new MapMiddleware()
+  map.path('/')
+    .regist(app)
 
-  const tileBackend = new TileBackend()
-  const tileService = new TileService({ tileBackend })
-  const tileController = new TileController({ app, tileService })
-  tileController.regist()
+  const cartonik = new Cartonik()
+  const tile = new TileMiddleware(cartonik)
+  tile.path('/:layer(\\w+)/:z(\\d+)/:x(\\d+)/:y(\\d+).:format')
+    .regist(app)
 }
 
 start()

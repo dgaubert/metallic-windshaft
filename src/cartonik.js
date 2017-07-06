@@ -13,7 +13,7 @@ const ORIGIN_SHIFT = EARTH_CIRCUMFERENCE / 2
 const shapeDatasource = path.join(mapnik.settings.paths.input_plugins, 'shape.input')
 mapnik.register_datasource(shapeDatasource)
 
-export default class TileBackend {
+export default class Cartonik {
   load ({ path }) {
     const map = new Map(TILE_SIZE, TILE_SIZE)
 
