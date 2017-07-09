@@ -10,7 +10,7 @@
     "url": "git+https://github.com/dgaubert/metallic-windshaft.git"
   },
   "engines": {
-    "node": ">=8.0.0"
+    "node": ">=7.6.0"
   },
   "scripts": {
     "start": "node lib --no-metrics --cluster",
@@ -28,6 +28,7 @@
   },
   "dependencies": {
     "koa-compose": "^4.0.0",
+    "krater": "^0.1.0",
     "mapnik": "^3.6.2",
     "metallic": "^0.5.0",
     "path-to-regexp": "^1.7.0"
