@@ -1,4 +1,4 @@
-import Router from '../router'
+import { default as Router } from 'krater'
 import { readFileSync as readFile } from 'fs'
 import path from 'path'
 

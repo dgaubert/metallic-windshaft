@@ -1,4 +1,4 @@
-import Router from '../router'
+import { default as Router } from 'krater'
 import path from 'path'
 
 const CONTENT_TYPE = 'png'
