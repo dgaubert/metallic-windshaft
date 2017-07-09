@@ -11,9 +11,7 @@ const CONTENT_TYPE = 'html'
 export default class MapMiddleware extends Router {
   get () {
     return async ctx => {
-      if (!ctx.accepts(CONTENT_TYPE)) {
-        ctx.throw(415)
-      }
+      ctx.assert(ctx.accepts(CONTENT_TYPE), 415)
 
       ctx.body = INDEX_CONTENT
       ctx.type = CONTENT_TYPE

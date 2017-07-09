@@ -43,15 +43,9 @@ export default class TileMiddleware extends Router {
   get () {
     return [
       async (ctx, next) => {
-        if (!ctx.accepts(CONTENT_TYPE)) {
-          ctx.throw(415)
-        }
-
+        ctx.assert(ctx.accepts(CONTENT_TYPE), 415)
         ctx.params = this.params(ctx)
-
-        if (!SUPPORTED_FORMATS[ctx.params.format]) {
-          ctx.throw(422, `Unsupported format ${ctx.params.format}`)
-        }
+        ctx.assert(SUPPORTED_FORMATS[ctx.params.format], 422, `Unsupported format ${ctx.params.format}`)
 
         await next()
 
@@ -60,11 +54,7 @@ export default class TileMiddleware extends Router {
       },
       async (ctx, next) => {
         const layerPath = LAYERS[ctx.params.layer]
-
-        if (!layerPath) {
-          ctx.throw(400, `Layer ${ctx.params.layer} does not exist`)
-        }
-
+        ctx.assert(layerPath, 400, `Layer ${ctx.params.layer} does not exist`)
         ctx.state.layerPath = layerPath
 
         await next()

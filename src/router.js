@@ -32,10 +32,7 @@ export default class Router {
       if (this.match(ctx.path)) {
         const handler = this[methods[ctx.method]]
 
-        if (typeof handler !== 'function') {
-          ctx.throw(405)
-        }
-
+        ctx.assert(typeof handler === 'function', 405)
         ctx.params = this.params(ctx)
 
         let middleware = handler.call(this)
