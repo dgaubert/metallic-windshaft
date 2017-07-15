@@ -1,8 +1,9 @@
 import Metallic, { SERVER } from 'metallic'
-
-import Cartonik from './cartonik'
-import MapMiddleware from './middlewares/map'
-import TileMiddleware from './middlewares/tile'
+import Cartonik from 'cartonik'
+import Raster from './renders/raster'
+import MapController from './map/map-controller'
+import TileController from './tile/tile-controller'
+import tileHooks from './tile/tile-hooks'
 
 const { app, role, start } = new Metallic({
   port: 8888,
@@ -12,13 +13,17 @@ const { app, role, start } = new Metallic({
 })
 
 if (role === SERVER) {
-  const map = new MapMiddleware()
-  map.path('/')
+  const mapController = new MapController()
+  mapController
+    .path('/')
     .regist(app)
 
   const cartonik = new Cartonik()
-  const tile = new TileMiddleware(cartonik)
-  tile.path('/:layer(\\w+)/:z(\\d+)/:x(\\d+)/:y(\\d+).:format')
+  const render = new Raster(cartonik)
+  const tileController = new TileController(render)
+  tileController
+    .path('/:layer(\\w+)/:z(\\d+)/:x(\\d+)/:y(\\d+).:format')
+    .hook(tileHooks)
     .regist(app)
 }
 

@@ -27,8 +27,9 @@
     "test:watch": "npm run test -- -w"
   },
   "dependencies": {
+    "cartonik": "^0.2.1",
     "koa-compose": "^4.0.0",
-    "krater": "^0.1.0",
+    "krater": "^0.4.0",
     "mapnik": "^3.6.2",
     "metallic": "^0.5.0",
     "path-to-regexp": "^1.7.0"
