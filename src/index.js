@@ -1,9 +1,11 @@
 import Metallic, { SERVER } from 'metallic'
 import Cartonik from 'cartonik'
-import Raster from './renders/raster'
+import RasterRenderer from './renders/raster'
 import MapController from './map/map-controller'
 import TileController from './tile/tile-controller'
-import tileHooks from './tile/tile-hooks'
+import layerValidator from './tile/layer-validator'
+import coordsValidator from './tile/coords-validator'
+import formatValidator from './tile/format-validator'
 
 const { app, role, start } = new Metallic({
   port: 8888,
@@ -19,11 +21,16 @@ if (role === SERVER) {
     .regist(app)
 
   const cartonik = new Cartonik()
-  const render = new Raster(cartonik)
-  const tileController = new TileController(render)
+  const renderer = new RasterRenderer(cartonik)
+  const tileController = new TileController(renderer)
+  const validators = [
+    layerValidator,
+    coordsValidator,
+    formatValidator
+  ]
   tileController
     .path('/:layer(\\w+)/:z(\\d+)/:x(\\d+)/:y(\\d+).:format')
-    .hook(tileHooks)
+    .hook(validators)
     .regist(app)
 }
 

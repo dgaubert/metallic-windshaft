@@ -1,4 +1,4 @@
-export default class Raster {
+export default class RasterRenderer {
   constructor (cartonik) {
     this.cartonik = cartonik
   }
