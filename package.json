@@ -13,9 +13,10 @@
     "node": ">=7.6.0"
   },
   "scripts": {
+    "benchmark": "node lib/benchmark",
     "start": "node lib --no-metrics --cluster",
     "dev": "NODE_ENV=development node lib --no-metrics | bunyan",
-    "build": "babel src -d lib --source-maps inline",
+    "build": "babel src -d lib --source-maps inline --copy-files",
     "build:watch": "npm run build -- --watch",
     "coverage": "nyc --reporter=lcov npm test",
     "lint": "standard \"src/**/*.js\" \"test/**/*.js\"",
@@ -31,7 +32,7 @@
     "koa-compose": "^4.0.0",
     "krater": "^0.5.0",
     "mapnik": "^3.6.2",
-    "metallic": "^0.5.0",
+    "metallic": "^0.6.0",
     "path-to-regexp": "^1.7.0"
   },
   "devDependencies": {
@@ -43,6 +44,9 @@
     "sinon": "^2.3.5",
     "source-map-support": "^0.4.15",
     "standard": "^10.0.1"
+  },
+  "optionalDependencies": {
+    "prepend-file": "^1.3.1"
   },
   "standard": {
     "env": {
