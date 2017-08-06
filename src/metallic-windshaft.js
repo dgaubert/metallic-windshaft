@@ -1,6 +1,6 @@
 import Metallic, { SERVER } from 'metallic'
 import Cartonik from 'cartonik'
-import RasterRenderer from './renders/raster'
+import RasterRenderer from './renderers/raster'
 import MapController from './map/map-controller'
 import TileController from './tile/tile-controller'
 import LayerValidator from './tile/layer-validator'
