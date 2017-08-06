@@ -38,8 +38,8 @@ export default class MetallicWindshaft {
   }
 
   async start () {
-    const httpServer = await this.metallic.start()
-    return httpServer
+    const httpServerInfo = await this.metallic.start()
+    return httpServerInfo
   }
 
   async stop () {

@@ -1,5 +1,5 @@
 -- Usage:
---   wrk {endpoint} [{map-config} {z} {x} {y} {z-max}] [wrk options]
+--   wrk {endpoint} [{layer} {z} {x} {y} {z-max}] [wrk options]
 -- Where:
 --   map-config: map config of the map to test (default: simple_map)
 --   z: zoom corresponding to the the tile to break down
@@ -80,12 +80,10 @@ calculateNextCoords = function()
             end
         end
     end
-    -- print("requesting tiles: " .. z .. "/" .. xmin .. "/" .. ymin .. " <- " .. z .. "/" .. xmax .. "/" .. ymax)
 end
 
 request = function()
     path = "/" .. layer .. "/" .. z .. "/" .. x .. "/" .. y ..".png"
-    -- print(string.format("%d/%d/%d", z, x, y))
 
     calculateNextCoords()
 
