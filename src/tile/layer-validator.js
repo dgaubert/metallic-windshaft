@@ -12,13 +12,17 @@ const LAYERS = {}
 LAYERS[COUNTRIES] = COUNTRIES_PATH
 LAYERS[STATES] = STATES_PATH
 
-export default async function layerValidator (ctx, next) {
-  const { layer } = ctx.params
-  const layerPath = LAYERS[layer]
+export default class LayerValidator {
+  validate () {
+    return async (ctx, next) => {
+      const { layer } = ctx.params
+      const layerPath = LAYERS[layer]
 
-  ctx.assert(layerPath, 400, `Layer ${layer} does not exist`)
+      ctx.assert(layerPath, 400, `Layer ${layer} does not exist`)
 
-  ctx.params.layer = layerPath
+      ctx.params.layer = layerPath
 
-  await next()
+      await next()
+    }
+  }
 }

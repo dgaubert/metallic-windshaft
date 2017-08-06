@@ -3,9 +3,9 @@ import Cartonik from 'cartonik'
 import RasterRenderer from './renders/raster'
 import MapController from './map/map-controller'
 import TileController from './tile/tile-controller'
-import layerValidator from './tile/layer-validator'
-import coordsValidator from './tile/coords-validator'
-import formatValidator from './tile/format-validator'
+import LayerValidator from './tile/layer-validator'
+import CoordsValidator from './tile/coords-validator'
+import FormatValidator from './tile/format-validator'
 
 export default class MetallicWindshaft {
   constructor (port) {
@@ -16,24 +16,25 @@ export default class MetallicWindshaft {
       }
     })
 
-    if (this.metallic.role === SERVER) {
+    const { app, role } = this.metallic
+
+    if (role === SERVER) {
       const mapController = new MapController()
       mapController
         .path('/')
-        .regist(this.metallic.app)
+        .regist(app)
 
       const cartonik = new Cartonik()
       const renderer = new RasterRenderer(cartonik)
       const tileController = new TileController(renderer)
-      const validators = [
-        layerValidator,
-        coordsValidator,
-        formatValidator
-      ]
       tileController
         .path('/:layer(\\w+)/:z(\\d+)/:x(\\d+)/:y(\\d+).:format')
-        .hook(validators)
-        .regist(this.metallic.app)
+        .hook([
+          new LayerValidator().validate(),
+          new CoordsValidator().validate(),
+          new FormatValidator().validate()
+        ])
+        .regist(app)
     }
   }
 
