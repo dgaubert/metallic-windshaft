@@ -39,5 +39,8 @@ jspm_packages
 # ES6 -> ES5 transpiled modules
 lib
 
+# ES6 -> ES5 transpiled benchmark modules
+benchmark/lib
+
 # Test output
 test/results

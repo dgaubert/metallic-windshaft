@@ -13,7 +13,8 @@
     "node": ">=7.6.0"
   },
   "scripts": {
-    "benchmark": "node lib/benchmark",
+    "benchmark:build": "babel benchmark/src -d benchmark/lib --source-maps inline --copy-files",
+    "benchmark": "npm run benchmark:build && NODE_ENV=development node benchmark/lib",
     "start": "node lib --no-metrics --cluster",
     "dev": "NODE_ENV=development node lib --no-metrics | bunyan",
     "build": "babel src -d lib --source-maps inline --copy-files",

@@ -1,4 +1,4 @@
-import MetallicWindshaft from '../metallic-windshaft'
+import MetallicWindshaft from '../../lib/metallic-windshaft'
 
 async function run () {
   const tiler = new MetallicWindshaft(0)
