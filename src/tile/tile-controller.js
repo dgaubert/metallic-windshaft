@@ -1,8 +1,8 @@
 import { default as Router } from 'krater'
 import RasterRenderer from '../renderers/raster'
-import LayerValidator from './layer-validator'
-import CoordsValidator from './coords-validator'
-import FormatValidator from './format-validator'
+import layerValidator from './layer-validator'
+import coordsValidator from './coords-validator'
+import formatValidator from './format-validator'
 
 const CONTENT_TYPE = 'png'
 
@@ -13,9 +13,9 @@ export default class TileController extends Router {
 
     tileController.path('/:layer(\\w+)/:z(\\d+)/:x(\\d+)/:y(\\d+).:format')
       .hook([
-        new LayerValidator().validate(),
-        new CoordsValidator().validate(),
-        new FormatValidator().validate()
+        layerValidator(),
+        coordsValidator(),
+        formatValidator()
       ])
       .regist(app)
   }
