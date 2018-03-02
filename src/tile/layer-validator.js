@@ -16,11 +16,10 @@ export default class LayerValidator {
   validate () {
     return async (ctx, next) => {
       const { layer } = ctx.params
-      const layerPath = LAYERS[layer]
 
-      ctx.assert(layerPath, 400, `Layer ${layer} does not exist`)
+      ctx.assert(LAYERS[layer], 400, `Layer ${layer} does not exist`)
 
-      ctx.params.layer = layerPath
+      ctx.params.layer = LAYERS[layer]
 
       await next()
     }

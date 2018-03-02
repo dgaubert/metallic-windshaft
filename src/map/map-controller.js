@@ -9,6 +9,11 @@ const INDEX_CONTENT = readFile(PATH_TO_INDEX, 'utf8')
 const CONTENT_TYPE = 'html'
 
 export default class MapController extends Router {
+  static mount (app) {
+    const mapController = new MapController()
+    mapController.path('/').regist(app)
+  }
+
   get () {
     return async ctx => {
       ctx.assert(ctx.accepts(CONTENT_TYPE), 415)
